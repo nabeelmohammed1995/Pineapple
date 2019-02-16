@@ -1,0 +1,50 @@
+package com.mygdx.pineapple.android.Stage;
+
+import android.graphics.Color;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.pineapple.android.GamePanel;
+
+/**
+ * Created by Brown Eyed Angel on 11-10-2015.
+ */
+public class HUD {
+    public Stage stage;
+    private Viewport vport;
+    private Integer LevelTimer;
+    private float Timecount;
+    private Integer Score;
+
+    Label scoreLabel;
+    Label levelLabel;
+    Label shayLabel;
+    public HUD(SpriteBatch sb){
+        LevelTimer=400;
+        Timecount=0;
+        Score=0;
+        vport=new FitViewport(GamePanel.N_WIDTH,GamePanel.N_HEIGHT,new OrthographicCamera());
+        stage=new Stage(vport,sb);
+
+        Table table=new Table();
+        table.top();
+        table.setFillParent(true);
+
+        scoreLabel=new Label(String.format("%07d",Score),new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.GREEN));
+        levelLabel=new Label(String.format("%03d",LevelTimer),new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.GREEN));
+        shayLabel=new Label("Shay",new Label.LabelStyle(new BitmapFont(), com.badlogic.gdx.graphics.Color.GREEN));
+
+        table.add(shayLabel).expandX().padTop(11);
+        table.add(levelLabel).expandX().padTop(11);
+        table.add(scoreLabel).expandX().padTop(11);
+
+        stage.addActor(table);
+    }
+
+}

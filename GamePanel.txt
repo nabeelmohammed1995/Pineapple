@@ -1,0 +1,29 @@
+package com.mygdx.pineapple.android;
+
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.pineapple.android.Screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.pineapple.Objects;
+import com.badlogic.gdx.ApplicationAdapter;
+
+public class GamePanel extends Game {
+    public static final int N_WIDTH=800;
+    public static final int N_HEIGHT=408;
+	public SpriteBatch batch;
+
+	@Override
+	public void create(){
+		batch=new SpriteBatch();
+        setScreen(new PlayScreen(this));
+	}
+	@Override
+	public void render(){
+        super.render();
+	}
+}

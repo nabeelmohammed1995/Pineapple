@@ -1,0 +1,31 @@
+
+  //box 2d variables
+    private World world;
+    private Box2DDebugRenderer b2dr;
+    private  Shay player;   
+public  PlayScreen(GamePanel game){
+        this.game=game;
+        cam=new OrthographicCamera();
+        port=new FitViewport(GamePanel.N_WIDTH,GamePanel.N_HEIGHT,cam);
+        hud=new HUD(game.batch);
+        mapLoader=new TmxMapLoader();
+        map=mapLoader.load("testtile.tmx");
+        renderer=new OrthogonalTiledMapRenderer(map,GamePanel.PPM);
+        cam.position.set((port.getWorldWidth()/2)/GamePanel.PPM,(port.getWorldHeight()/2)/GamePanel.PPM,0);
+        //box 2d
+        world=new World(new Vector2(0,-10),true);
+        b2dr=new Box2DDebugRenderer();
+        BodyDef bdef=new BodyDef();
+        PolygonShape shape=new PolygonShape();
+        Body body;
+         player=new Shay(world);
+        FixtureDef fdef=new FixtureDef();
+        for(MapObject object:map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+            com.badlogic.gdx.math.Rectangle rect= ((RectangleMapObject) object).getRectangle();
+            bdef.type=BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX()+rect.getWidth()/2)/GamePanel.PPM,(rect.getY()+rect.getHeight()/2)/GamePanel.PPM);
+            body=world.createBody(bdef);
+            shape.setAsBox((rect.getWidth() / 2)/GamePanel.PPM, (rect.getHeight() / 2)/GamePanel.PPM);
+            fdef.shape=shape;
+            body.createFixture(fdef);
+        }
